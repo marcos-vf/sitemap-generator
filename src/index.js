@@ -132,10 +132,9 @@ module.exports = function SitemapGenerator(uri, opts) {
             const newPath = extendFilename(sitemapPath, `_part${count}`);
 
             // copy and remove tmp file
-            cpFile(tmpPath, newPath).then(() => {
-              fs.unlink(tmpPath, () => {
-                done();
-              });
+            fs.copyFileSync(sitemaps[0], sitemapPath);
+            fs.unlink(tmpPath, () => {
+              done();
             });
 
             count += 1;
@@ -154,9 +153,8 @@ module.exports = function SitemapGenerator(uri, opts) {
           }
         );
       } else if (sitemaps.length) {
-        cpFile(sitemaps[0], sitemapPath).then(() => {
-          fs.unlink(sitemaps[0], cb);
-        });
+        fs.copyFileSync(sitemaps[0], sitemapPath);
+        fs.unlink(sitemaps[0], cb);
       } else {
         cb();
       }
