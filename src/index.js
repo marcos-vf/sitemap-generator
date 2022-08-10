@@ -132,7 +132,7 @@ module.exports = function SitemapGenerator(uri, opts) {
             const newPath = extendFilename(sitemapPath, `_part${count}`);
 
             // copy and remove tmp file
-            fs.copyFileSync(sitemaps[0], sitemapPath);
+            fs.copyFileSync(tmpPath, newPath);
             fs.unlink(tmpPath, () => {
               done();
             });
